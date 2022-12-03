@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.conf import settings
+from django.shortcuts import render
 
 from .cart import Cart
 
@@ -25,4 +25,7 @@ def cart_detail(request):
 
 
 def success(request):
+    cart = Cart(request)
+    cart.clear()
+
     return render(request, 'success.html')

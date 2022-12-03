@@ -39,11 +39,26 @@
                             <td>[[ totalCost ]] zł</td>
                             <td></td>
                         </tr>
+
+                        <tr v-if="coupon_value">
+                            <td colspan="3">Total cost with coupon:</td>
+                            <td>[[ totalCostWithCoupon ]] zł</td>
+                        </tr>
                         </tfoot>
                     </table>
+
+                    <hr>
+
+                    <input type="hidden" v-model="coupon_value"><br>
+
+                    Coupon code:<br>
+                    <input type="text" v-model="coupon_code"><br>
+
+                    <button @click="applyCoupon()">Apply</button>
+
                 </div>
 
-                <form v-on:submit.prevent="submitForm()">
+                <form v-on:submit.prevent="buy()">
                     <div class="field">
                         <div class="control">
                             <label>First name</label>
@@ -98,7 +113,18 @@
             <p>Your cart is empty!</p>
         {% endif %}
 
-        <button @click="buy()">Check out</button>
+        <div v-if="errors.length > 0">
+            <article class="message is-danger"
+                     v-for="error in errors"
+            >
+                <div class="message-header">
+                    <p>Error</p>
+                </div>
+                <div class="message-body">
+                    [[ error ]]
+                </div>
+            </article>
+        </div>
     </div>
 {% endblock %}
 
@@ -111,13 +137,16 @@
             store: store,
             data() {
                 return {
+                    errors: [],
                     first_name: '',
                     last_name: '',
                     email: '',
                     address: '',
                     zipcode: '',
                     place: '',
-                    products: [{{ productsstring|safe }}]
+                    products: [{{ productsstring|safe }}],
+                    coupon_value: 0,
+                    coupon_code: '',
                 }
             },
             computed: {
@@ -126,38 +155,34 @@
                 },
                 totalCost: function () {
                     return store.state.totalCost;
+                },
+                totalCostWithCoupon: function () {
+                    if (this.coupon_value > 0) {
+                        return store.state.totalCost * (parseInt(this.coupon_value) / 100);
+                    } else {
+                        return store.state.totalCost;
+                    }
                 }
             },
             methods: {
-                buy() {
-                    let stripe = Stripe('{{ pub_key }}');
-
-                    fetch('/api/create_checkout_session/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        },
-                        credentials: 'same-origin'
-                    })
-                        .then(function (response) {
-                            return response.json();
+                applyCoupon() {
+                    if (this.coupon_code !== '') {
+                        fetch('/api/can_use/?coupon_code=' + this.coupon_code, {
+                            method: 'GET'
                         })
-                        .then(function (session) {
-                            return stripe.redirectToCheckout({ sessionId: session.session.id });
-                        })
-                        .then(function (result) {
-                            if (result.error) {
-                                alert(result.error.message);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        })
+                            .then((response) => {
+                                return response.json();
+                            })
+                            .then((data) => {
+                                if (data.amount) {
+                                    this.coupon_value = parseInt(data.amount);
+                                } else {
+                                    this.coupon_value = 0;
+                                }
+                            });
+                    }
                 },
-                submitForm() {
-                    console.log("Submit form");
-
+                buy() {
                     let data = {
                         'first_name': this.first_name,
                         'last_name': this.last_name,
@@ -165,27 +190,63 @@
                         'address': this.address,
                         'zipcode': this.zipcode,
                         'place': this.place,
+                        'coupon_code': this.coupon_code,
+                    };
+
+                    this.errors = [];
+
+                    if (data.first_name) {
+                        this.errors.push('First name is empty')
                     }
 
-                    fetch('/api/checkout/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        },
-                        credentials: 'same-origin',
-                        body: JSON.stringify(data)
-                    })
-                        .then((response) => {
-                            console.log('Success');
-                            console.log(response);
+                    if (data.last_name) {
+                        this.errors.push('Last name is empty')
+                    }
 
-                            window.location.href = '/';
+                    if (data.email) {
+                        this.errors.push('Email is empty')
+                    }
+
+                    if (data.address) {
+                        this.errors.push('Address is empty')
+                    }
+
+                    if (data.zipcode) {
+                        this.errors.push('Zipcode is empty')
+                    }
+
+                    if (data.place) {
+                        this.errors.push('Place is empty')
+                    }
+
+                    if (this.errors.length === 0) {
+
+                        var stripe = Stripe('{{ pub_key }}');
+
+                        fetch('/api/create_checkout_session/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            credentials: 'same-origin',
+                            body: JSON.stringify(data)
                         })
-                        .catch(function (error) {
-                            console.log('Error 2');
-                            console.log(error);
-                        })
+                            .then(function (response) {
+                                return response.json();
+                            })
+                            .then(function (session) {
+                                return stripe.redirectToCheckout({sessionId: session.session.id});
+                            })
+                            .then(function (result) {
+                                if (result.error) {
+                                    alert(result.error.message);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }
                 },
                 incrementQuantity(product_id, quantity, price) {
                     console.log('Product_id:', product_id);
