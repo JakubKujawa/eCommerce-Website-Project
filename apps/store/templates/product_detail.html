@@ -4,7 +4,7 @@
 
 {% block content %}
     <div id="productapp">
-        <img src="/{{ product.image.url }}">
+        <img src="{{ product.image.url }}">
         <h1 class="title">{{ product.title }}</h1>
         <h2 class="subtitle">{{ product.price }} zł</h2>
 
@@ -60,7 +60,7 @@
 
                             this.showMessage = true;
 
-                            store.commit('increment', 1);
+                            store.commit('increment ', 1);
 
                             setTimeout(() => {
                                 this.showMessage = false;
