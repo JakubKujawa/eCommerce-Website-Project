@@ -17,6 +17,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return f"/{self.slug}/"
+
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
@@ -40,6 +43,9 @@ class Product(models.Model):
         self.thumbnail = self.make_thumbnail(self.image)
 
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return f"/{self.category.slug}/{self.slug}/"
 
     @staticmethod
     def make_thumbnail(image, size=(300, 200)):
