@@ -40,12 +40,39 @@ class Product(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        print('Save', self.image.path)
         self.thumbnail = self.make_thumbnail(self.image)
 
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return f"/{self.category.slug}/{self.slug}/"
+
+    @staticmethod
+    def make_thumbnail(image, size=(300, 200)):
+        img = Image.open(image)
+        img.convert('RGB')
+        img.thumbnail(size)
+
+        thumb_io = BytesIO()
+        img.save(thumb_io, 'PNG', quality=95)
+
+        thumbnail = File(thumb_io, name=image.name)
+
+        return thumbnail
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        print('Save', self.image.path)
+        self.thumbnail = self.make_thumbnail(self.image)
+
+        super().save(*args, **kwargs)
 
     @staticmethod
     def make_thumbnail(image, size=(300, 200)):

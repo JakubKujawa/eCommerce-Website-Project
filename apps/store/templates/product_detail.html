@@ -4,7 +4,16 @@
 
 {% block content %}
     <div id="productapp">
-        <img src="{{ product.image.url }}">
+        <img :src="mainImage">
+        <hr>
+        <div class="column">
+            <div class="column is-2" v-for="image in images">
+                <figure class="image is-128x128">
+                    <img :src="image.thumbnail" @click="changeMainImage(image.image)">
+                </figure>
+            </div>
+        </div>
+        <hr>
         <h1 class="title">{{ product.title }}</h1>
         <h2 class="subtitle">{{ product.price }} zł</h2>
 
@@ -30,13 +39,18 @@
             store: store,
             data() {
                 return {
-                    showMessage: false
+                    showMessage: false,
+                    mainImage: '{{ product.image.url }}',
+                    images: [{{ images_string|safe }}]
                 }
             },
             mounted() {
                 console.log('Mounted');
             },
             methods: {
+                changeMainImage(image) {
+                    this.mainImage = image;
+                },
                 addToCart(product_id) {
                     console.log('Product_id:', product_id);
 
