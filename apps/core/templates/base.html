@@ -7,33 +7,48 @@
 		<title>{% block title %}{% endblock %}eCommerce Website</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <link rel="stylesheet" href="{% static 'main.css' %}">
-	</head>
+    </head>
 
-	<body>
-		<nav class="navbar is-dark">
-			<div class="navbar-brand">
-				<a class="navbar-item" href="{% url 'frontpage' %}">eCommerce Website</a>
+    <body>
+    <nav class="navbar is-dark" id="navbarapp">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'frontpage' %}">eCommerce Website</a>
 
-				<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-				</a>
-			</div>
+            <a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+               data-target="main-navbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
 
-			<div id="main-navbar" class="navbar-menu">
-				<div class="navbar-end">
-                    {% for category in menu_categories %}
-                        <a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
-                    {% endfor %}
-                    <div class="navbar-item" id="navbarapp">
-                        <a href="{% url 'cart' %}" class="button is-primary">Cart ([[ numItems ]])</a>
-                    </div>
-				</div>
-			</div>
-		</nav>
+        <div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass}">
+            <div class="navbar-start">
+                <div class="navbar-item">
+                    <form method="get" action="{% url 'search' %}">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Search..." name="query">
+                            </div>
+                            <div class="control">
+                                <button class="button is-success">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="navbar-end">
+                {% for category in menu_categories %}
+                    <a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
+                {% endfor %}
+                <div class="navbar-item">
+                    <a href="{% url 'cart' %}" class="button is-primary">Cart ([[ numItems ]])</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-		<section class="section">
+    <section class="section">
 			{% block content %}
             {% endblock %}
 		</section>
@@ -71,14 +86,26 @@
                 el: '#navbarapp',
                 delimiters: ['[[', ']]'],
                 store: store,
+                data() {
+                    return {
+                        menuClass: false
+                    }
+                },
                 computed: {
                     numItems: function () {
                         return store.state.numItems;
                     }
+                },
+                methods: {
+                    toggleMenu() {
+                        console.log('toggle menu');
+
+                        this.menuClass = !this.menuClass;
+                    }
                 }
             });
         </script>
-        {% block script %}
+    {% block script %}
         {% endblock %}
 	</body>
 </html>

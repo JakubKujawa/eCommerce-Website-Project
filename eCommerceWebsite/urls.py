@@ -30,6 +30,7 @@ urlpatterns = [
 
                   # Frontpage
 
+                  path('search/', search, name='search'),
                   path('cart/', cart_detail, name='cart'),
                   path('hooks/', webhook, name='webhook'),
                   path('cart/success/', success, name='success'),
