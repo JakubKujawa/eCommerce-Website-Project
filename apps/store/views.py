@@ -19,11 +19,11 @@ def search(request):
 def product_detail(request, category_slug, slug):
     product = get_object_or_404(Product, slug=slug)
 
-    images_string = f"{{'thumbnail': '{product.thumbnail.url}', 'image': '{product.image.url}'}},"
+    images_string = f"{{'thumbnail': '{product.thumbnail.url}', 'image': '{product.image.url}'}}, "
 
     for image in product.images.all():
         images_string = images_string + (f"{{'thumbnail': '{image.thumbnail.url}', "
-                                         f"'image': '{image.image.url}'}},")
+                                         f"'image': '{image.image.url}'}}, ")
 
     context = {
         'product': product,
