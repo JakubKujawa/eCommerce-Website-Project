@@ -31,4 +31,4 @@ Projekt sklepu internetowego na zajęcia `Zaawansowane Programowanie Obiektowe` 
 *Powyższa wersja w przyszłości zostanie zastąpiona ogólnym zbiorem funkcjonalności. Obecna wersja służy głównie jako lista TO-DO, aby nie pogubił się w kolejności implementacji.*
 
 ### Obecne problemy w podstawowej implementacji:
-- [ ] https://github.com/JakubKujawa/eCommerce-Website-Project/issues/1
+- [ ] [Loading failed for the <script> with source “https://js.stripe.com/v3/”](https://github.com/JakubKujawa/eCommerce-Website-Project/issues/1)
