@@ -31,4 +31,9 @@ def webhook(request):
         order.paid = True
         order.save()
 
+        for item in order.items.all():
+            product = item.product
+            product.num_available = product.num_available - item.quantity
+            product.save()
+
     return HttpResponse(status=200)

@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 
 from .models import Product, Category
+from ..cart.cart import Cart
 
 
 def search(request):
@@ -24,6 +25,13 @@ def product_detail(request, category_slug, slug):
     for image in product.images.all():
         images_string = images_string + (f"{{'thumbnail': '{image.thumbnail.url}', "
                                          f"'image': '{image.image.url}'}}, ")
+
+    cart = Cart(request)
+
+    if cart.has_product(product.id):
+        product.in_cart = True
+    else:
+        product.in_cart = False
 
     context = {
         'product': product,
