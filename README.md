@@ -13,7 +13,7 @@ Projekt sklepu internetowego na zajęcia `Zaawansowane Programowanie Obiektowe` 
 - [x] Podstawowa wyszukiwarka oraz dodanie sitemaps
 - [x] Większa liczba zdjęć w szczegółach produktu
 - [x] Sprawdzanie aktualnego wyposażenia sklepu i wyświetlanie odpowiednich komunikatów
-- [ ] Obsługa mailów do wysyłania statusu wysłania paczki
+- [x] Obsługa mailów do wysyłania statusu wysłania paczki
 - [ ] Konta klientów
 - [ ] Wariacje produktów
 - [ ] Ulepszenie wizualnie strony

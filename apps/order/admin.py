@@ -1,6 +1,8 @@
 import datetime
 
 from django.contrib import admin
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from .models import Order, OrderItem
 
@@ -17,6 +19,10 @@ def admin_order_shipped(modeladmin, request, queryset):
         order.shipped_date = datetime.datetime.now()
         order.status = Order.SHIPPED
         order.save()
+
+        html = render_to_string('order_sent.html', {'order': order})
+        send_mail('Order sent', 'Your order has been sent!', 'noreply@ecommerce.com',
+                  ['mail@ecommerce.com', order.email], fail_silently=True, html_message=html)
     return
 
 
