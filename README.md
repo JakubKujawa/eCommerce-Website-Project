@@ -1,6 +1,6 @@
 # eCommerce-Website-Project
 
-Projekt sklepu internetowego na zajęcia `Zaawansowane Programowanie Obiektowe` w całości wykonany w `Django (Python)` i `Vue.js`.
+Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie Obiektowe` wykonany w `Django + Vue.js`.
 
 ### Planowane funkcjonalności (krok po kroku):
 - [x] Widok kategorii oraz produktów
@@ -27,6 +27,7 @@ Projekt sklepu internetowego na zajęcia `Zaawansowane Programowanie Obiektowe` 
 - [ ] Obsługa płatności PayPal 
 - [ ] Refaktoryzacja całego kodu
 - [ ] Widok najpopularniejszych produktów strony
+- [ ] Zmiana brandingu i wszelkich tekstu interakcji z klientem
 
 *Powyższa wersja w przyszłości zostanie zastąpiona ogólnym zbiorem funkcjonalności. Obecna wersja służy głównie jako lista TO-DO, aby nie pogubił się w kolejności implementacji.*
 
