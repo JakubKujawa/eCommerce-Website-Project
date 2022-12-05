@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
@@ -25,6 +26,7 @@ from apps.core.views import frontpage, contact, about
 from apps.coupon.api import api_can_use
 from apps.store.api import api_add_to_cart, api_remove_from_cart, api_checkout, create_checkout_session
 from apps.store.views import product_detail, category_detail, search
+from apps.userprofile.views import signup, myaccount
 from .sitemaps import StaticViewSitemap, CategorySitemap, ProductSitemap
 
 sitemaps = {
@@ -45,6 +47,12 @@ urlpatterns = [
                   path('', frontpage, name='frontpage'),
                   path('contact/', contact, name='contact'),
                   path('about/', about, name='about'),
+
+                  # Auth
+                  path('myaccount/', myaccount, name='myaccount'),
+                  path('signup/', signup, name='signup'),
+                  path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
+                  path('logout/', views.LogoutView.as_view(), name='logout'),
 
                   path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
