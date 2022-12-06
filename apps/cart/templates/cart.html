@@ -73,6 +73,11 @@
                         </div>
                     </div>
 
+                    <div class="notification is-warning" v-if="showCouponCodeError">
+                        <p>The coupon code is not valid!</p>
+                    </div>
+
+                    <hr>
                 </div>
 
                 {% if not request.user.is_authenticated %}
@@ -185,6 +190,7 @@
                     products: [{{ productsstring|safe }}],
                     coupon_value: 0,
                     coupon_code: '',
+                    showCouponCodeError: false,
                 }
             },
             computed: {
@@ -213,11 +219,15 @@
                             })
                             .then((data) => {
                                 if (data.amount) {
+                                    this.showCouponCodeError = false;
                                     this.coupon_value = parseInt(data.amount);
                                 } else {
                                     this.coupon_value = 0;
+                                    this.showCouponCodeError = true;
                                 }
                             });
+                    } else {
+                        this.showCouponCodeError = true;
                     }
                 },
                 buy() {
