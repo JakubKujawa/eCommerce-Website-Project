@@ -243,27 +243,27 @@
 
                     this.errors = [];
 
-                    if (data.first_name) {
+                    if (!data.first_name) {
                         this.errors.push('First name is empty')
                     }
 
-                    if (data.last_name) {
+                    if (!data.last_name) {
                         this.errors.push('Last name is empty')
                     }
 
-                    if (data.email) {
+                    if (!data.email) {
                         this.errors.push('Email is empty')
                     }
 
-                    if (data.address) {
+                    if (!data.address) {
                         this.errors.push('Address is empty')
                     }
 
-                    if (data.zipcode) {
+                    if (!data.zipcode) {
                         this.errors.push('Zipcode is empty')
                     }
 
-                    if (data.place) {
+                    if (!data.place) {
                         this.errors.push('Place is empty')
                     }
 
