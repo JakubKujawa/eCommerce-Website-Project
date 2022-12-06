@@ -38,7 +38,9 @@
                             </td>
                             <td>[[ product.total_price ]] zł</td>
                             <td>
-                                <button @click="removeFromCart(product.id)" class="button is-danger">Remove</button>
+                                <button @click="removeFromCart(product.id, product.quantity)" class="button is-danger">
+                                    Remove
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -355,7 +357,7 @@
                     };
 
                     if (parseInt(quantity) - 1 === 0) {
-                        this.removeFromCart(product_id);
+                        this.removeFromCart(product_id, quantity);
                     } else {
                         store.commit('increment', -1);
                         store.commit('changeTotalCost', -parseFloat(price));
@@ -388,11 +390,12 @@
                             })
                     }
                 },
-                removeFromCart(product_id) {
+                removeFromCart(product_id, quantity) {
                     console.log('Product_id:', product_id);
 
                     let data = {
                         'product_id': product_id,
+                        'quantity': 0
                     };
 
                     fetch('/api/remove_from_cart/', {
@@ -408,6 +411,7 @@
                             console.log(response);
 
                             this.products = this.products.filter(product => product.id !== product_id)
+                            store.commit('increment', -parseInt(quantity))
                         })
                         .catch(function (error) {
                             console.log('Error 2');
