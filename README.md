@@ -15,8 +15,8 @@ Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie
 - [x] Sprawdzanie aktualnego wyposażenia sklepu i wyświetlanie odpowiednich komunikatów
 - [x] Obsługa mailów do wysyłania statusu wysłania paczki
 - [x] Konta klientów
-- [ ] Wariacje produktów
-- [ ] Ulepszenie wizualnie strony
+- [x] Wariacje produktów
+- [x] Ulepszony wygląd formularzy
 - [ ] Newsletter
 - [ ] Produkty powiązane z wybranym produktem
 - [ ] Opinie klientów
@@ -24,7 +24,7 @@ Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie
 - [ ] Ulepszone konta użytkowników
 - [ ] Dodanie pod kategorii
 - [ ] Zaawansowana wyszukiwarka produktów
-- [ ] Obsługa płatności PayPal 
+- [ ] Obsługa płatności PayPal
 - [ ] Refaktoryzacja całego kodu
 - [ ] Widok najpopularniejszych produktów strony
 - [ ] Zmiana brandingu i wszelkich tekstu interakcji z klientem
