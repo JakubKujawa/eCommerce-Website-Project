@@ -17,7 +17,7 @@ Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie
 - [x] Konta klientów
 - [x] Wariacje produktów
 - [x] Ulepszony wygląd formularzy
-- [ ] Newsletter
+- [x] Newsletter
 - [ ] Produkty powiązane z wybranym produktem
 - [ ] Opinie klientów
 - [ ] Wydawanie paragonów w formie elektronicznej

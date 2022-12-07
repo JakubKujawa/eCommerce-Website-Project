@@ -8,3 +8,17 @@ form ul {
     font-size: 12px;
     color: #ccc;
 }
+
+.newsletter-wrapper {
+    padding: 50px 20px;
+    text-align: center;
+    background: #f1f1f1;
+}
+
+.newsletter-wrapper .notification {
+    margin-top: 20px;
+}
+
+.newsletter-wrapper .field.has-addons {
+    justify-content: center;
+}
