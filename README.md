@@ -20,7 +20,7 @@ Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie
 - [x] Newsletter
 - [x] Produkty powiązane z wybranym produktem
 - [x] Opinie klientów
-- [ ] Wydawanie paragonów w formie elektronicznej
+- [x] Wydawanie paragonów w formie elektronicznej
 - [ ] Ulepszone konta użytkowników
 - [ ] Dodanie pod kategorii
 - [ ] Zaawansowana wyszukiwarka produktów
