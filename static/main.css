@@ -9,17 +9,17 @@ form ul {
     color: #ccc;
 }
 
-.newsletter-wrapper {
+.newsletter-wraper {
     padding: 50px 20px;
     text-align: center;
     background: #f1f1f1;
 }
 
-.newsletter-wrapper .notification {
+.newsletter-wraper .notification {
     margin-top: 20px;
 }
 
-.newsletter-wrapper .field.has-addons {
+.newsletter-wraper .field.has-addons {
     justify-content: center;
 }
 

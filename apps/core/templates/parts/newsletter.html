@@ -1,4 +1,4 @@
-<div class="newsletter-wraper" id="newsletter-wrapper">
+<div class="newsletter-wraper" id="newsletter-wraper">
     <h2 class="subtitle">Subscribe to our newsletter</h2>
 
     <form v-on:submit.prevent="onSubmit">
@@ -13,13 +13,13 @@
     </form>
 
     <div class="notification is-success" v-if="showSuccess">
-        The e-mail adress was saved!
+        The e-mail address was saved!
     </div>
 </div>
 
 <script>
     var newsletterapp = new Vue({
-        el: '#newsletter-wrapper',
+        el: '#newsletter-wraper',
         data() {
             return {
                 email: '',
@@ -49,10 +49,9 @@
                     })
                     .catch(function (error) {
                         this.showSuccess = false;
-
-                        console.log(error);
+                        console.log('Error: ', error);
                     });
             }
         }
-    });
+    })
 </script>
