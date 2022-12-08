@@ -25,6 +25,7 @@ from apps.cart.webhook import webhook
 from apps.core.views import frontpage, contact, about
 from apps.coupon.api import api_can_use
 from apps.newsletter.api import api_add_subscriber
+from apps.order.views import admin_order_pdf
 from apps.store.api import api_add_to_cart, api_remove_from_cart, api_checkout, create_checkout_session
 from apps.store.views import product_detail, category_detail, search
 from apps.userprofile.views import signup, myaccount
@@ -37,6 +38,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+                  path('admin/admin_order_pdf/<int:order_id>/', admin_order_pdf, name='admin_order_pdf'),
                   path('admin/', admin.site.urls),
 
                   # Frontpage
