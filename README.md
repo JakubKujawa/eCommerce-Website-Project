@@ -18,8 +18,8 @@ Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie
 - [x] Wariacje produktów
 - [x] Ulepszony wygląd formularzy
 - [x] Newsletter
-- [ ] Produkty powiązane z wybranym produktem
-- [ ] Opinie klientów
+- [x] Produkty powiązane z wybranym produktem
+- [x] Opinie klientów
 - [ ] Wydawanie paragonów w formie elektronicznej
 - [ ] Ulepszone konta użytkowników
 - [ ] Dodanie pod kategorii
