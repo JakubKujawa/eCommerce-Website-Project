@@ -3,6 +3,20 @@
 {% block title %}{{ product.title }} | {% endblock %}
 
 {% block content %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'frontpage' %}"></a>Home</li>
+            {% if product.category.parent %}
+                <li>
+                    <a href="{% url 'category_detail' product.category.parent.slug %}"></a>{{ product.category.parent.title }}
+                </li>
+            {% endif %}
+            <li><a href="{% url 'category_detail' product.category.slug %}"></a>{{ product.category.title }}</li>
+            <li class="is-active"><a
+                    href="{% url 'product_detail' product.category.slug product.slug %}">{{ product.title }}</a></li>
+        </ul>
+    </nav>
+
     <div id="productapp">
         <img :src="mainImage">
         {% if product.images.all %}
