@@ -6,7 +6,7 @@ from .models import UserProfile
 
 
 class UserProfileForm(forms.ModelForm):
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
 
         self.fields['address'].widget.attrs['class'] = 'input'
@@ -25,7 +25,7 @@ class SignUpForm(UserCreationForm):
     last_name = forms.CharField(max_length=50, required=True)
     email = forms.EmailField(max_length=255, required=True)
 
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
 
         self.fields['username'].widget.attrs['class'] = 'input'
