@@ -13,7 +13,7 @@ def search(request):
     instock = request.GET.get('instock')
     price_from = request.GET.get('price_from', 0)
     price_to = request.GET.get('price_to', 100000)
-    sorting = request.GET.get('sorting', '-date-added')
+    sorting = request.GET.get('sorting', '-date_added')
     products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
         price__gte=price_from).filter(price__lte=price_to)
 
