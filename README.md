@@ -21,8 +21,8 @@ Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie
 - [x] Produkty powiązane z wybranym produktem
 - [x] Opinie klientów
 - [x] Wydawanie paragonów w formie elektronicznej
-- [ ] Ulepszone konta użytkowników
-- [ ] Dodanie pod kategorii
+- [x] Ulepszone konta użytkowników
+- [x] Dodanie pod kategorii
 - [ ] Zaawansowana wyszukiwarka produktów
 - [ ] Obsługa płatności PayPal
 - [ ] Refaktoryzacja całego kodu
