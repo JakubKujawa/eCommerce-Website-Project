@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load paginator_tags %}
 
 {% block title %}Search | {% endblock %}
 
@@ -59,15 +60,19 @@
 
                     <div class="control">
                         <div class="select">
-                            <select name="sorting">
-                                <option value="-date_added" {% if sorting == '-date_added' %} selected {% endif %}>
-                                    Newest first
-                                </option>
-                                <option value="price" {% if sorting == 'price' %} selected {% endif %}>Price low-high
-                                </option>
-                                <option value="-price" {% if sorting == '-price' %} selected {% endif %}>Price high-low
-                                </option>
-                            </select>
+                            <label>
+                                <select name="sorting">
+                                    <option value="-date_added" {% if sorting == '-date_added' %} selected {% endif %}>
+                                        Newest first
+                                    </option>
+                                    <option value="price" {% if sorting == 'price' %} selected {% endif %}>Price
+                                        low-high
+                                    </option>
+                                    <option value="-price" {% if sorting == '-price' %} selected {% endif %}>Price
+                                        high-low
+                                    </option>
+                                </select>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -88,4 +93,40 @@
     {% with products as list_products %}
         {% include 'parts/product_list.html' %}
     {% endwith %}
+
+    {% if products and products.paginator.num_pages > 1 %}
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            {% if products.has_previous %}
+                <a class="pagination-previous" href="?page=
+                        {{ products.previous_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Previous</a>
+            {% else %}
+                <a class="pagination-previous is-disabled">Previous</a>
+            {% endif %}
+
+            <ul class="pagination-list">
+                {% get_proper_elided_page_range products.paginator products.number 1 1 as page_range %}
+                {% for page_num in page_range %}
+                    {% if page_num == products.number %}
+                        <li><a class="pagination-link is-current">{{ page_num }}</a></li>
+                    {% else %}
+                        {% if page_num == products.paginator.ELLIPSIS %}
+                            <li><span class="pagination-ellipsis">{{ page_num }}</span></li>
+                        {% else %}
+                            <li><a class="pagination-link" href="?page=
+                                    {{ page_num }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">{{ page_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            {% if products.has_next %}
+                <a class="pagination-next" href="?page=
+                        {{ products.next_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Next</a>
+            {% else %}
+                <a class="pagination-next is-disabled">Next</a>
+            {% endif %}
+        </nav>
+    {% endif %}
+
 {% endblock %}

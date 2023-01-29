@@ -1,6 +1,7 @@
 import random
 from datetime import datetime
 
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -20,9 +21,13 @@ def search(request):
     if instock:
         products = products.filter(num_available__gte=1)
 
+    paginator = Paginator(products.order_by(sorting), 1)
+    page_number = request.GET.get('page')
+    products_list = paginator.get_page(page_number)
+
     context = {
         'query': query,
-        'products': products.order_by(sorting),
+        'products': products_list,
         'instock': instock,
         'price_from': price_from,
         'price_to': price_to,
@@ -44,7 +49,7 @@ def product_detail(request, category_slug, slug):
         stars = request.POST.get('stars', 3)
         content = request.POST.get('content', '')
 
-        review = ProductReview.objects.create(product=product, user=request.user, stars=stars, content=content)
+        ProductReview.objects.create(product=product, user=request.user, stars=stars, content=content)
 
         return redirect('product_detail', category_slug=category_slug, slug=slug)
 
@@ -84,9 +89,13 @@ def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = category.products.filter(parent=None)
 
+    paginator = Paginator(products, 1)
+    page_number = request.GET.get('page')
+    products_list = paginator.get_page(page_number)
+
     context = {
         'category': category,
-        'products': products
+        'products': products_list
     }
 
     return render(request, 'category_detail.html', context)
