@@ -112,8 +112,7 @@
                         {% if page_num == products.paginator.ELLIPSIS %}
                             <li><span class="pagination-ellipsis">{{ page_num }}</span></li>
                         {% else %}
-                            <li><a class="pagination-link" href="?page=
-                                    {{ page_num }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">{{ page_num }}</a>
+                            <li><a class="pagination-link" href="?page={{ page_num }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">{{ page_num }}</a>
                             </li>
                         {% endif %}
                     {% endif %}
@@ -121,8 +120,7 @@
             </ul>
 
             {% if products.has_next %}
-                <a class="pagination-next" href="?page=
-                        {{ products.next_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Next</a>
+                <a class="pagination-next" href="?page={{ products.next_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Next</a>
             {% else %}
                 <a class="pagination-next is-disabled">Next</a>
             {% endif %}
