@@ -23,7 +23,7 @@
         </a>
     </div>
 
-    <div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass}">
+    <div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass }">
         <div class="navbar-start">
             <div class="navbar-item">
                 <form method="get" action="{% url 'search' %}">
@@ -40,14 +40,14 @@
         </div>
         <div class="navbar-end">
             {% for category in menu_categories %}
-                {% if not category.childer.all %}
+                {% if not category.children.all %}
                     <a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
                 {% else %}
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
 
                         <div class="navbar-dropdown">
-                            {% for subcategory in category.childern.all %}
+                            {% for subcategory in category.children.all %}
                                 <a href="{% url 'category_detail' subcategory.slug %}"
                                    class="navbar-item">{{ subcategory.title }}</a>
                             {% endfor %}
