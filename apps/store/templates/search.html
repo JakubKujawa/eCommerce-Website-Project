@@ -88,6 +88,15 @@
                                     All
                                 </option>
                                 {% for category_c in menu_categories %}
+                                    {% if category_c.children.all %}
+                                        {% for subcategory in category_c.children.all %}
+                                            <option value="{{ subcategory.title }}"
+                                                    {% if category == subcategory.title %}
+                                                    selected {% endif %} >
+                                                {{ subcategory.title }}
+                                            </option>
+                                        {% endfor %}
+                                    {% endif %}
                                     <option value="{{ category_c.title }}" {% if category == category_c.title %}
                                             selected {% endif %} >
                                         {{ category_c.title }}
@@ -119,7 +128,9 @@
     {% if products and products.paginator.num_pages > 1 %}
         <nav class="pagination is-centered" role="navigation" aria-label="pagination">
             {% if products.has_previous %}
-                <a class="pagination-previous" href="?page={{ products.previous_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Previous</a>
+                <a class="pagination-previous" href="?page=
+
+                        {{ products.previous_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Previous</a>
             {% else %}
                 <a class="pagination-previous is-disabled">Previous</a>
             {% endif %}
@@ -133,7 +144,9 @@
                         {% if page_num == products.paginator.ELLIPSIS %}
                             <li><span class="pagination-ellipsis">{{ page_num }}</span></li>
                         {% else %}
-                            <li><a class="pagination-link" href="?page={{ page_num }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">{{ page_num }}</a>
+                            <li><a class="pagination-link" href="?page=
+
+                                    {{ page_num }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">{{ page_num }}</a>
                             </li>
                         {% endif %}
                     {% endif %}
@@ -141,7 +154,9 @@
             </ul>
 
             {% if products.has_next %}
-                <a class="pagination-next" href="?page={{ products.next_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Next</a>
+                <a class="pagination-next" href="?page=
+
+                        {{ products.next_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">Next</a>
             {% else %}
                 <a class="pagination-next is-disabled">Next</a>
             {% endif %}
