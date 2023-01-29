@@ -15,8 +15,13 @@ def search(request):
     price_from = request.GET.get('price_from', 0)
     price_to = request.GET.get('price_to', 100000)
     sorting = request.GET.get('sorting', '-date_added')
-    products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
-        price__gte=price_from).filter(price__lte=price_to)
+    category = request.GET.get('category', 'all')
+    if category == 'all':
+        products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
+            price__gte=price_from).filter(price__lte=price_to)
+    else:
+        products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
+            price__gte=price_from).filter(price__lte=price_to).filter(category__title__exact=category)
 
     if instock:
         products = products.filter(num_available__gte=1)
@@ -31,7 +36,8 @@ def search(request):
         'instock': instock,
         'price_from': price_from,
         'price_to': price_to,
-        'sorting': sorting
+        'sorting': sorting,
+        'category': category
     }
 
     return render(request, 'search.html', context)

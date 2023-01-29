@@ -44,7 +44,7 @@
                 {% get_proper_elided_page_range products.paginator products.number 1 1 as page_range %}
                 {% for page_num in page_range %}
                     {% if page_num == products.number %}
-                        <li><a class="pagination-link is-current">{{ page_num }}</a></li>
+                        <li><a class="pagination-link is-current is-success">{{ page_num }}</a></li>
                     {% else %}
                         {% if page_num == products.paginator.ELLIPSIS %}
                             <li><span class="pagination-ellipsis">{{ page_num }}</span></li>
