@@ -16,12 +16,11 @@ def search(request):
     price_to = request.GET.get('price_to', 100000)
     sorting = request.GET.get('sorting', '-date_added')
     category = request.GET.get('category', 'all')
-    if category == 'all':
-        products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
+    products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
             price__gte=price_from).filter(price__lte=price_to)
-    else:
-        products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).filter(
-            price__gte=price_from).filter(price__lte=price_to).filter(category__title__exact=category)
+
+    if category != 'all':
+        products = products.filter(category__title__exact=category)
 
     if instock:
         products = products.filter(num_available__gte=1)
