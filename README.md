@@ -2,7 +2,7 @@
 
 Projekt sklepu internetowego związany z przedmiotem `Zaawansowane Programowanie Obiektowe` wykonany w `Django + Vue.js`.
 
-## Setup
+## Konfiguracja
 
 Pierwszą rzeczą, którą należy zrobić jest sklonowanie repozytorium:
 
