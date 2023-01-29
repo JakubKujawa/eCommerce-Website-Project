@@ -3,25 +3,33 @@
 {% block title %}{{ product.title }} | {% endblock %}
 
 {% block content %}
-    <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="{% url 'frontpage' %}">Home</a></li>
-            {% if product.category.parent %}
-                <li>
-                    <a href="{% url 'category_detail' product.category.parent.slug %}">{{ product.category.parent.title }}</a>
-                </li>
-            {% endif %}
-            <li><a href="{% url 'category_detail' product.category.slug %}">{{ product.category.title }}</a></li>
-            <li class="is-active"><a
-                    href="{% url 'product_detail' product.category.slug product.slug %}">{{ product.title }}</a></li>
-        </ul>
-    </nav>
 
     <div id="productapp">
-        <img :src="mainImage">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="{% url 'frontpage' %}">Home</a></li>
+                {% if product.category.parent %}
+                    <li>
+                        <a href="{% url 'category_detail' product.category.parent.slug %}">{{ product.category.parent.title }}</a>
+                    </li>
+                {% endif %}
+                <li><a href="{% url 'category_detail' product.category.slug %}">{{ product.category.title }}</a></li>
+                <li class="is-active"><a
+                        href="{% url 'product_detail' product.category.slug product.slug %}">{{ product.title }}</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="columns">
+            <div class="column is-4">
+                <figure class="image is-128x128">
+                    <img :src="mainImage">
+                </figure>
+            </div>
+        </div>
+
         {% if product.images.all %}
             <hr>
-            <div class="column">
+            <div class="columns">
                 <div class="column is-2" v-for="image in images">
                     <figure class="image is-128x128">
                         <img :src="image.thumbnail" @click="changeMainImage(image.image)">
@@ -31,14 +39,8 @@
         {% endif %}
         <hr>
         <h1 class="title">{{ product.title }}</h1>
-        <h2 class="subtitle">{{ product.price }} zł,
-            {% if product.get_rating == 0 %}
-                No ratings yet...
-            {% else %}
-                Stars:  {{ product.get_rating|floatformat:1 }}
-            {% endif %}
-        </h2>
-
+        <h2 class="subtitle">{{ product.price }} PLN, Stars: {% if product.get_rating == 0 %}No ratings yet{% else %}
+            {{ product.get_rating|floatformat:1 }}{% endif %}</h2>
 
         {% if product.description %}
             <p>{{ product.description }}</p>
@@ -52,8 +54,8 @@
                         <tr>
                             <td>
                                 <figure class="image is-48x48">
-                                    {% if product.get_thumbnail %}
-                                        <img src="{{ product.get_thumbnail }}">
+                                    {% if product.thumbnail.url %}
+                                        <img src="{{ product.thumbnail.url }}">
                                     {% endif %}
                                 </figure>
                             </td>
@@ -76,12 +78,13 @@
                                 {% endif %}
                             </td>
                         </tr>
+
                         {% for variant in product.variants.all %}
                             <tr>
                                 <td>
                                     <figure class="image is-48x48">
-                                        {% if variant.get_thumbnail %}
-                                            <img src="{{ variant.get_thumbnail }}">
+                                        {% if variant.thumbnail.url %}
+                                            <img src="{{ variant.thumbnail.url }}">
                                         {% endif %}
                                     </figure>
                                 </td>
