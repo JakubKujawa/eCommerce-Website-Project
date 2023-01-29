@@ -31,6 +31,3 @@ Gdy `pip` skończy pobierać zależności:
 (env) python manage.py runserver
 ```
 I przejdź do `http://127.0.0.1:8000/`.
-
-### Obecne problemy w podstawowej implementacji:
-- [ ] [Loading failed for the <script> with source “https://js.stripe.com/v3/”](https://github.com/JakubKujawa/eCommerce-Website-Project/issues/1)
