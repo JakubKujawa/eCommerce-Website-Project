@@ -15,6 +15,9 @@
     <div class="notification is-success" v-if="showSuccess">
         The e-mail address was saved!
     </div>
+    <div class="notification is-danger" v-if="showFailure">
+        Wrong e-mail address!
+    </div>
 </div>
 
 <script>
@@ -23,7 +26,8 @@
         data() {
             return {
                 email: '',
-                showSuccess: false
+                showSuccess: false,
+                showFailure: false
             }
         },
         methods: {
@@ -44,7 +48,8 @@
                     .then((data) => {
                         console.log(data);
 
-                        this.showSuccess = true;
+                        this.showSuccess = data.success;
+                        this.showFailure = !data.success;
                         this.email = '';
                     })
                     .catch(function (error) {

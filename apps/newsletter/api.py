@@ -9,6 +9,9 @@ def api_add_subscriber(request):
     data = json.loads(request.body)
     email = data['email']
 
-    s = Subscriber.objects.create(email=email)
+    if email != '':
+        Subscriber.objects.create(email=email)
+    else:
+        return JsonResponse({'success': False})
 
     return JsonResponse({'success': True})
