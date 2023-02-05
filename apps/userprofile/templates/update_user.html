@@ -3,9 +3,9 @@
 {% block content %}
     <div class="columns">
         <div class="column is-6 is-offset-3">
-            <h1 class="title">Sign up</h1>
+            <h1 class="title">Update information</h1>
 
-            <form method="post" action=".">
+            <form method="POST">
                 {% csrf_token %}
 
                 {{ form.as_p }}
@@ -15,7 +15,8 @@
                 <div class="field">
                     <div class="control">
                         <br>
-                        <button class="button is-success">Sign up</button>
+                        <button type="submit" class="button is-success">Accept changes</button>
+                        <button type="reset" class="button is-danger">Reset</button>
                     </div>
                 </div>
             </form>

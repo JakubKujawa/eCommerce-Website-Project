@@ -38,3 +38,21 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
+
+class UpdateUserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+    email = forms.EmailField(max_length=255, required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateUserForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['class'] = 'input'
+        self.fields['email'].widget.attrs['class'] = 'input'
+        self.fields['first_name'].widget.attrs['class'] = 'input'
+        self.fields['last_name'].widget.attrs['class'] = 'input'
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
