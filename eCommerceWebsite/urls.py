@@ -28,7 +28,7 @@ from apps.newsletter.api import api_add_subscriber
 from apps.order.views import admin_order_pdf
 from apps.store.api import api_add_to_cart, api_remove_from_cart, api_checkout, create_checkout_session
 from apps.store.views import product_detail, category_detail, search
-from apps.userprofile.views import signup, myaccount
+from apps.userprofile.views import signup, myaccount, password_change_done
 from .sitemaps import StaticViewSitemap, CategorySitemap, ProductSitemap
 
 sitemaps = {
@@ -67,6 +67,10 @@ urlpatterns = [
                   path('myaccount/reset/done',
                        views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
                        name='password_reset_complete'),
+                  path('myaccount/change_password/',
+                       views.PasswordChangeView.as_view(template_name='change_password.html'),
+                       name='change_password'),
+                  path('myaccount/change/done', password_change_done, name='password_change_done'),
 
                   path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 

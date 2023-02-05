@@ -3,7 +3,15 @@
 {% block content %}
     <h1 class="title">My account</h1>
 
+    {% if changed %}
+        <div class="notification is-success">
+            Your password has been changed!
+        </div>
+    {% endif %}
+
     <a href="{% url 'logout' %}" class="button is-danger">Log out</a>
+    <a href="{% url 'change_password' %}" class="button is-info">Change password</a>
+    <a href="" class="button is-info">Change account details</a>
 
     <hr>
 

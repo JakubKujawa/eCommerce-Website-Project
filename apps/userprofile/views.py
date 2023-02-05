@@ -29,4 +29,9 @@ def signup(request):
 
 @login_required
 def myaccount(request):
-    return render(request, 'myaccount.html')
+    return render(request, 'myaccount.html', {"changed": False})
+
+
+@login_required
+def password_change_done(request):
+    return render(request, 'myaccount.html', {"changed": True})
