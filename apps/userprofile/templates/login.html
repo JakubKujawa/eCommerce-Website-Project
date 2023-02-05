@@ -26,6 +26,12 @@
                     </div>
                 </div>
 
+                <div class="password-reset-link">
+                    <label><a href="{% url 'password_reset' %}">Forgot password?</a></label>
+                </div>
+
+                <br>
+
                 {% if form.errors %}
                     <div class="notification is-danger">
                         Your username and password didn't match! Please try again!

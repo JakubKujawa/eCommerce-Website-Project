@@ -12,8 +12,8 @@ def cart_detail(request):
         product = item['product']
         url = f"/{product.category.slug}/{product.slug}/"
         b = f"{{'id': '{product.id}', 'title': '{product.title}', 'price': '{product.price}', " \
-            f"'quantity': '{item['quantity']}', 'total_price': '{item['total_price']}', " \
-            f"'thumbnail': '{product.get_thumbnail}', 'url': '{url}', 'num_available': '{product.num_available}'}}, "
+            f"'quantity': '{item['quantity']}', 'total_price': '{item['total_price']}', 'thumbnail': " \
+            f"'{product.get_thumbnail}', 'url': '{url}', 'num_available': '{product.num_available}'}}, "
 
         productsstring = productsstring + b
 

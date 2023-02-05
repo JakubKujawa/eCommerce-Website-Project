@@ -26,3 +26,9 @@ form ul {
 .notification.space-below {
     margin-bottom: 20px;
 }
+
+#id_email {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}

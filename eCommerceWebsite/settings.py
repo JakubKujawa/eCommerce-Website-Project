@@ -31,8 +31,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'cart'
