@@ -42,13 +42,6 @@
         <h2 class="subtitle">{{ product.price }} PLN, Stars: {% if product.get_rating == 0 %}No ratings yet{% else %}
             {{ product.get_rating|floatformat:1 }}{% endif %}</h2>
 
-        {% if product.description %}
-            <p class="has-text-justified">{{ product.description|linebreaksbr }}</p>
-        {% endif %}
-
-        <br>
-        <br>
-
         {% if product.variants.all %}
             <div class="columns">
                 <div class="column is-6">
@@ -132,6 +125,11 @@
                 The product was added to the cart!
             </div>
         </article>
+
+        {% if product.description %}
+            <br><br>
+            <p class="has-text-justified">{{ product.description|linebreaksbr }}</p>
+        {% endif %}
 
         <hr>
 
