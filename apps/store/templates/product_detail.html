@@ -63,11 +63,13 @@
                             <td>
                                 {% if product.in_cart %}
                                     <p>Already in cart!</p>
+                                    <button class="button is-success" disabled>Add to cart</button>
                                 {% else %}
                                     {% if product.num_available > 0 %}
-                                        <button @click="addToCart({{ product.id }})" class="button is-success">Add to
-                                            cart
+                                        <button v-if="!disableButton" @click="addToCart({{ product.id }})"
+                                                class="button is-success"> Add to cart
                                         </button>
+                                        <button v-else class="button is-success" disabled>Add to cart</button>
                                     {% else %}
                                         <p>The product is out of stock!</p>
                                     {% endif %}
@@ -91,12 +93,14 @@
 
                                 <td>
                                     {% if variant.in_cart %}
+                                        <button class="button is-success" disabled>Add to cart</button>
                                         <p>Already in cart!</p>
                                     {% else %}
                                         {% if variant.num_available > 0 %}
-                                            <button @click="addToCart({{ variant.id }})" class="button is-success">Add
-                                                to cart
+                                            <button v-if="!disableButton" @click="addToCart({{ variant.id }})"
+                                                    class="button is-success">Add to cart
                                             </button>
+                                            <button v-else class="button is-success" disabled>Add to cart</button>
                                         {% else %}
                                             <p>The product is out of stock!</p>
                                         {% endif %}
@@ -110,10 +114,14 @@
             </div>
         {% else %}
             {% if product.in_cart %}
+                <button class="button is-success" disabled>Add to cart</button>
                 <p>Already in cart!</p>
             {% else %}
                 {% if product.num_available > 0 %}
-                    <button @click="addToCart({{ product.id }})" class="button is-success">Add to cart</button>
+                    <button v-if="!disableButton" @click="addToCart({{ product.id }})" class="button is-success">Add to
+                        cart
+                    </button>
+                    <button v-else class="button is-success" disabled>Add to cart</button>
                 {% else %}
                     <p>The product is out of stock!</p>
                 {% endif %}
@@ -210,6 +218,7 @@
             data() {
                 return {
                     showMessage: false,
+                    disableButton: false,
                     mainImage: '{{ product.image.url }}',
                     images: [{{ images_string|safe }}]
                 }
@@ -243,6 +252,7 @@
                             console.log(response);
 
                             this.showMessage = true;
+                            this.disableButton = true;
 
                             store.commit('increment', 1);
 
