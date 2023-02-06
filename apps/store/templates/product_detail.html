@@ -43,7 +43,7 @@
             {{ product.get_rating|floatformat:1 }}{% endif %}</h2>
 
         {% if product.description %}
-            <p>{{ product.description|linebreaksbr }}</p>
+            <p class="has-text-justified">{{ product.description|linebreaksbr }}</p>
         {% endif %}
 
         <br>
