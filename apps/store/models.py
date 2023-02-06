@@ -37,7 +37,7 @@ class Product(models.Model):
     last_visit = models.DateTimeField(blank=True, null=True)
 
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -72,9 +72,9 @@ class Product(models.Model):
         img.thumbnail(size)
 
         thumb_io = BytesIO()
-        img.save(thumb_io, 'PNG', quality=95)
+        img.save(thumb_io, 'JPEG', quality=95)
 
-        thumbnail = File(thumb_io, name=image.name)
+        thumbnail = File(thumb_io, name=f"{image.name}-thumbnail")
 
         return thumbnail
 
@@ -91,10 +91,9 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        print('Save', self.image.path)
         self.thumbnail = self.make_thumbnail(self.image)
 
         super().save(*args, **kwargs)
@@ -106,9 +105,9 @@ class ProductImage(models.Model):
         img.thumbnail(size)
 
         thumb_io = BytesIO()
-        img.save(thumb_io, 'PNG', quality=95)
+        img.save(thumb_io, 'JPEG', quality=95)
 
-        thumbnail = File(thumb_io, name=image.name)
+        thumbnail = File(thumb_io, name=f"{image.name}-thumbnail")
 
         return thumbnail
 
