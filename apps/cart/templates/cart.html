@@ -21,7 +21,7 @@
                         <tr v-for="product in products">
                             <td>
                                 <figure class="image is-48x48">
-                                    <img :src="[[ product.get_thumbnail ]]">
+                                    <img :src="product.thumbnail">
                                 </figure>
                             </td>
                             <td>
@@ -165,7 +165,7 @@
         {% else %}
             <p>Your cart is empty!</p>
         {% endif %}
-
+        <br>
         <div v-if="errors.length > 0">
             <article class="message is-danger"
                      v-for="error in errors"

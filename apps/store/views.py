@@ -68,7 +68,7 @@ def product_detail(request, category_slug, slug):
     if product.parent:
         return redirect('product_detail', category_slug=category_slug, slug=product.parent.slug)
 
-    images_string = f"{{'thumbnail': '{product.get_thumbnail}', 'image': '{product.image.url}'}}, "
+    images_string = f"{{'thumbnail': '{product.get_thumbnail()}', 'image': '{product.image.url}'}}, "
 
     for image in product.images.all():
         images_string = images_string + (f"{{'thumbnail': '{image.thumbnail.url}', "
