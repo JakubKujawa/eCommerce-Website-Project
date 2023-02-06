@@ -30,10 +30,12 @@
                                 </a>
                             </td>
                             <td>
-                                <button @click="decrementQuantity(product.id, product.quantity, product.price)">-
+                                <button class="button is-danger is-small is-outlined"
+                                        @click="decrementQuantity(product.id, product.quantity, product.price)">-
                                 </button>
                                 [[ product.quantity ]]
-                                <button @click="incrementQuantity(product.id, product.quantity, product.price)">+
+                                <button class="button is-success is-small is-outlined"
+                                        @click="incrementQuantity(product.id, product.quantity, product.price)">+
                                 </button>
                             </td>
                             <td>[[ product.total_price ]] zł</td>
